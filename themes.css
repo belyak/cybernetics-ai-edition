@@ -1,0 +1,97 @@
+/* Red theme */
+.red-theme {
+    --primary-color: #a32424;
+    --secondary-color: #e74c3c;
+    --hover-color: #c0392b;
+}
+
+.red-theme.dark-mode {
+    --primary-color: #7a1818;
+    --secondary-color: #c0392b;
+    --hover-color: #e74c3c;
+}
+
+/* Blue theme */
+.blue-theme {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --hover-color: #1abc9c;
+}
+
+.blue-theme.dark-mode {
+    --primary-color: #1a2639;
+    --secondary-color: #2e86de;
+    --hover-color: #00b894;
+}
+
+/* Dark mode */
+.dark-mode {
+    --bg-color: #121212;
+    --chapter-bg: #1e272e;
+    --text-color: #f5f5f5;
+}
+
+/* Ikigai mode styling */
+.ikigai-mode .chapter-card {
+    transition: all 0.8s ease;
+}
+
+.ikigai-pulse {
+    animation: ikigaiPulse 4s infinite alternate;
+}
+
+@keyframes ikigaiPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Japanese Ikigai button styling */
+.ikigai-toggle {
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+    color: #2d3436;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.ikigai-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.ikigai-toggle::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(30deg);
+    animation: ikigaiShine 3s infinite linear;
+}
+
+@keyframes ikigaiShine {
+    0% {
+        left: -50%;
+        top: -50%;
+    }
+    100% {
+        left: 150%;
+        top: 150%;
+    }
+}
