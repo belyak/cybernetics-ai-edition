@@ -20,6 +20,7 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
+            transition: all 0.5s ease;
         }
         
         .ascii-art {
@@ -38,11 +39,13 @@
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
         }
         
         .header h1 {
             margin: 0;
             font-size: 2.2rem;
+            transition: all 0.5s ease;
         }
         
         .header h2 {
@@ -50,12 +53,14 @@
             font-size: 1.5rem;
             font-weight: normal;
             opacity: 0.9;
+            transition: all 0.5s ease;
         }
         
         .header p {
             margin: 0.5rem 0 0 0;
             font-size: 1.1rem;
             opacity: 0.9;
+            transition: all 0.5s ease;
         }
         
         .creator-note {
@@ -63,6 +68,7 @@
             font-style: italic;
             font-size: 0.9rem !important;
             color: rgba(255, 255, 255, 0.8);
+            transition: all 0.5s ease;
         }
         
         .container {
@@ -82,7 +88,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             padding: 1.5rem;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
         }
@@ -100,6 +106,7 @@
             width: 5px;
             height: 100%;
             background-color: var(--secondary-color);
+            transition: all 0.5s ease;
         }
         
         .chapter-card h2 {
@@ -108,6 +115,7 @@
             font-size: 1.3rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #eee;
+            transition: all 0.5s ease;
         }
         
         .chapter-card ul {
@@ -119,6 +127,7 @@
         .chapter-card li {
             padding: 0.5rem 0;
             border-bottom: 1px dashed #eee;
+            transition: all 0.5s ease;
         }
         
         .chapter-card li:last-child {
@@ -144,6 +153,7 @@
             margin-top: 2rem;
             background-color: var(--primary-color);
             color: white;
+            transition: all 0.5s ease;
         }
         
         .theme-toggles {
@@ -198,6 +208,27 @@
             --primary-color: #1a2639;
             --secondary-color: #2e86de;
             --hover-color: #00b894;
+        }
+        
+        /* Ikigai theme additions */
+        .ikigai-mode .chapter-card {
+            transition: all 0.8s ease;
+        }
+        
+        .ikigai-pulse {
+            animation: ikigaiPulse 4s infinite alternate;
+        }
+        
+        @keyframes ikigaiPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         
         /* Language hover effect styling */
@@ -296,6 +327,50 @@
                 font-size: 1.8rem;
             }
         }
+        
+        /* Japanese Ikigai button styling */
+        .ikigai-toggle {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+            color: #2d3436;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ikigai-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .ikigai-toggle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg);
+            animation: ikigaiShine 3s infinite linear;
+        }
+        
+        @keyframes ikigaiShine {
+            0% {
+                left: -50%;
+                top: -50%;
+            }
+            100% {
+                left: 150%;
+                top: 150%;
+            }
+        }
     </style>
     
     <script>
@@ -337,6 +412,7 @@
             const body = document.body;
             const blueThemeToggle = document.getElementById('blueThemeToggle');
             const redThemeToggle = document.getElementById('redThemeToggle');
+            const ikigaiToggle = document.getElementById('ikigaiToggle');
             
             // Initialize themes
             body.classList.add('blue-theme');
@@ -352,6 +428,12 @@
                 body.classList.toggle('red-theme');
                 body.classList.toggle('blue-theme');
                 updateToggleText(redThemeToggle);
+            });
+            
+            // Ikigai toggle
+            ikigaiToggle.addEventListener('click', () => {
+                body.classList.toggle('ikigai-mode');
+                applyIkigaiPrinciples();
             });
             
             function updateToggleText(button) {
@@ -405,6 +487,102 @@
                 }
             }
             
+            // Ikigai principles function
+            function applyIkigaiPrinciples() {
+                // Clear any previous ikigai styling
+                document.querySelectorAll('.ikigai-pulse').forEach(el => {
+                    el.classList.remove('ikigai-pulse');
+                });
+                
+                // Reset inline styles
+                document.querySelectorAll('.chapter-card, .chapter-card::before, .chapter-card h2, .chapter-card li, .chapter-card a')
+                    .forEach(el => {
+                        el.style = '';
+                    });
+                
+                if (body.classList.contains('ikigai-mode')) {
+                    // Define the four Ikigai principles
+                    const ikigaiColors = {
+                        passion: {
+                            primary: '#FF6B6B', // Red
+                            secondary: '#FF8E8E'
+                        },
+                        mission: {
+                            primary: '#48DBFB', // Blue
+                            secondary: '#7AECFF'
+                        },
+                        vocation: {
+                            primary: '#1DD1A1', // Green
+                            secondary: '#5AE9C0'
+                        },
+                        profession: {
+                            primary: '#FECA57', // Yellow
+                            secondary: '#FFD985'
+                        }
+                    };
+                    
+                    // Get all chapter cards
+                    const chapterCards = document.querySelectorAll('.chapter-card');
+                    
+                    // Cybernetic Ikigai principle: Balance random variation with meaningful structure
+                    chapterCards.forEach((card, index) => {
+                        // Assign each card to one of the four principle areas
+                        const ikigaiArea = Object.keys(ikigaiColors)[index % 4];
+                        const colors = ikigaiColors[ikigaiArea];
+                        
+                        // Add a subtle pulse animation to some cards (semi-random)
+                        if (Math.random() > 0.6) {
+                            card.classList.add('ikigai-pulse');
+                        }
+                        
+                        // Set card background with a gradient based on its ikigai area
+                        card.style.background = `linear-gradient(135deg, ${colors.primary}22, ${colors.secondary}33)`;
+                        
+                        // Change the left border color
+                        const beforeElements = window.getComputedStyle(card, '::before');
+                        card.style.setProperty('--secondary-color', colors.primary);
+                        
+                        // Modify heading color
+                        const heading = card.querySelector('h2');
+                        heading.style.color = colors.primary;
+                        
+                        // Update list items with subtle indicators of their ikigai principle
+                        const listItems = card.querySelectorAll('li');
+                        listItems.forEach((item, i) => {
+                            // Semi-random border style
+                            const borderStyle = Math.random() > 0.5 ? 'dashed' : 'dotted';
+                            item.style.borderBottom = `1px ${borderStyle} ${colors.secondary}`;
+                            
+                            // Add color to links
+                            const link = item.querySelector('a');
+                            if (link) {
+                                link.style.transition = 'all 0.3s ease';
+                                link.addEventListener('mouseenter', () => {
+                                    link.style.color = colors.primary;
+                                });
+                                link.addEventListener('mouseleave', () => {
+                                    link.style.color = '';
+                                });
+                            }
+                        });
+                        
+                        // Apply semi-random transformations for visual interest
+                        if (Math.random() > 0.7) {
+                            const rotation = (Math.random() * 0.5 - 0.25).toFixed(2);
+                            card.style.transform = `rotate(${rotation}deg)`;
+                        }
+                    });
+                    
+                    // Apply ikigai to header as well
+                    const header = document.querySelector('.header');
+                    header.style.background = `linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)`;
+                    
+                    // Feedback that indicates ikigai mode is active
+                    const allIkigaiAreas = Object.values(ikigaiColors).map(c => c.primary).join(', ');
+                    document.documentElement.style.setProperty('--hover-color', ikigaiColors.vocation.primary);
+                }
+            }
+            
             // Make chapters expandable on mobile
             const chapterCards = document.querySelectorAll('.chapter-card');
             
@@ -438,6 +616,7 @@
         <div class="theme-toggles">
             <button class="theme-toggle" id="blueThemeToggle" data-en="Day/Night Mode" data-ru="Дневной/Ночной режим" data-fr="Mode Jour/Nuit">Day/Night Mode</button>
             <button class="theme-toggle" id="redThemeToggle" data-en="Red/Blue Mode" data-ru="Красный/Синий режим" data-fr="Mode Rouge/Bleu">Red/Blue Mode</button>
+            <button class="ikigai-toggle" id="ikigaiToggle" data-en="生き甲斐" data-ru="生き甲斐" data-fr="生き甲斐">生き甲斐</button>
         </div>
     </div>
     
@@ -488,72 +667,4 @@
                 <ul>
                     <li><a href="#5.1" data-en="5.1. Automated Control Systems" data-ru="5.1. Автоматизированные системы управления" data-fr="5.1. Systèmes de Contrôle Automatisés">5.1. Automated Control Systems</a></li>
                     <li><a href="#5.2" data-en="5.2. Robotics" data-ru="5.2. Робототехника" data-fr="5.2. Robotique">5.2. Robotics</a></li>
-                    <li><a href="#5.3" data-en="5.3. Mechatronics" data-ru="5.3. Мехатроника" data-fr="5.3. Mécatronique">5.3. Mechatronics</a></li>
-                    <li><a href="#5.4" data-en="5.4. Measurement Systems and Sensors" data-ru="5.4. Измерительные системы и датчики" data-fr="5.4. Systèmes de Mesure et Capteurs">5.4. Measurement Systems and Sensors</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Chapter 6. Biological Cybernetics" data-ru="Глава 6. Биологическая кибернетика" data-fr="Chapitre 6. Cybernétique Biologique">Chapter 6. Biological Cybernetics</h2>
-                <ul>
-                    <li><a href="#6.1" data-en="6.1. Biological Control Systems" data-ru="6.1. Биологические системы управления" data-fr="6.1. Systèmes de Contrôle Biologiques">6.1. Biological Control Systems</a></li>
-                    <li><a href="#6.2" data-en="6.2. Neurocybernetics" data-ru="6.2. Нейрокибернетика" data-fr="6.2. Neurocybernétique">6.2. Neurocybernetics</a></li>
-                    <li><a href="#6.3" data-en="6.3. Modeling of Biological Processes" data-ru="6.3. Моделирование биологических процессов" data-fr="6.3. Modélisation des Processus Biologiques">6.3. Modeling of Biological Processes</a></li>
-                    <li><a href="#6.4" data-en="6.4. Artificial Neural Networks" data-ru="6.4. Искусственные нейронные сети" data-fr="6.4. Réseaux de Neurones Artificiels">6.4. Artificial Neural Networks</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Chapter 7. Economic Cybernetics" data-ru="Глава 7. Экономическая кибернетика" data-fr="Chapitre 7. Cybernétique Économique">Chapter 7. Economic Cybernetics</h2>
-                <ul>
-                    <li><a href="#7.1" data-en="7.1. Modeling of Economic Processes" data-ru="7.1. Моделирование экономических процессов" data-fr="7.1. Modélisation des Processus Économiques">7.1. Modeling of Economic Processes</a></li>
-                    <li><a href="#7.2" data-en="7.2. Optimal Resource Management" data-ru="7.2. Оптимальное управление ресурсами" data-fr="7.2. Gestion Optimale des Ressources">7.2. Optimal Resource Management</a></li>
-                    <li><a href="#7.3" data-en="7.3. Decision Support Systems" data-ru="7.3. Системы поддержки принятия решений" data-fr="7.3. Systèmes d'Aide à la Décision">7.3. Decision Support Systems</a></li>
-                    <li><a href="#7.4" data-en="7.4. Economic Indicators Forecasting" data-ru="7.4. Прогнозирование экономических показателей" data-fr="7.4. Prévision des Indicateurs Économiques">7.4. Economic Indicators Forecasting</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Chapter 8. Social Cybernetics" data-ru="Глава 8. Социальная кибернетика" data-fr="Chapitre 8. Cybernétique Sociale">Chapter 8. Social Cybernetics</h2>
-                <ul>
-                    <li><a href="#8.1" data-en="8.1. Society as a Cybernetic System" data-ru="8.1. Общество как кибернетическая система" data-fr="8.1. La Société comme Système Cybernétique">8.1. Society as a Cybernetic System</a></li>
-                    <li><a href="#8.2" data-en="8.2. Information Society" data-ru="8.2. Информационное общество" data-fr="8.2. Société de l'Information">8.2. Information Society</a></li>
-                    <li><a href="#8.3" data-en="8.3. Modeling of Social Processes" data-ru="8.3. Моделирование социальных процессов" data-fr="8.3. Modélisation des Processus Sociaux">8.3. Modeling of Social Processes</a></li>
-                    <li><a href="#8.4" data-en="8.4. Management of Social Systems" data-ru="8.4. Управление социальными системами" data-fr="8.4. Gestion des Systèmes Sociaux">8.4. Management of Social Systems</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Chapter 9. Artificial Intelligence" data-ru="Глава 9. Искусственный интеллект" data-fr="Chapitre 9. Intelligence Artificielle">Chapter 9. Artificial Intelligence</h2>
-                <ul>
-                    <li><a href="#9.1" data-en="9.1. Basic Concepts of Artificial Intelligence" data-ru="9.1. Основные концепции искусственного интеллекта" data-fr="9.1. Concepts de Base de l'Intelligence Artificielle">9.1. Basic Concepts of Artificial Intelligence</a></li>
-                    <li><a href="#9.2" data-en="9.2. Expert Systems" data-ru="9.2. Экспертные системы" data-fr="9.2. Systèmes Experts">9.2. Expert Systems</a></li>
-                    <li><a href="#9.3" data-en="9.3. Machine Learning" data-ru="9.3. Машинное обучение" data-fr="9.3. Apprentissage Automatique">9.3. Machine Learning</a></li>
-                    <li><a href="#9.4" data-en="9.4. Computer Vision and Pattern Recognition" data-ru="9.4. Компьютерное зрение и распознавание образов" data-fr="9.4. Vision par Ordinateur et Reconnaissance de Formes">9.4. Computer Vision and Pattern Recognition</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Chapter 10. Cybersecurity" data-ru="Глава 10. Кибербезопасность" data-fr="Chapitre 10. Cybersécurité">Chapter 10. Cybersecurity</h2>
-                <ul>
-                    <li><a href="#10.1" data-en="10.1. Information Security Threats" data-ru="10.1. Угрозы информационной безопасности" data-fr="10.1. Menaces pour la Sécurité de l'Information">10.1. Information Security Threats</a></li>
-                    <li><a href="#10.2" data-en="10.2. Information Protection Methods" data-ru="10.2. Методы защиты информации" data-fr="10.2. Méthodes de Protection de l'Information">10.2. Information Protection Methods</a></li>
-                    <li><a href="#10.3" data-en="10.3. Cryptography" data-ru="10.3. Криптография" data-fr="10.3. Cryptographie">10.3. Cryptography</a></li>
-                    <li><a href="#10.4" data-en="10.4. Ethical Aspects of Cybersecurity" data-ru="10.4. Этические аспекты кибербезопасности" data-fr="10.4. Aspects Éthiques de la Cybersécurité">10.4. Ethical Aspects of Cybersecurity</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Chapter 11. Perspectives of Cybernetics Development" data-ru="Глава 11. Перспективы развития кибернетики" data-fr="Chapitre 11. Perspectives de Développement de la Cybernétique">Chapter 11. Perspectives of Cybernetics Development</h2>
-                <ul>
-                    <li><a href="#11.1" data-en="11.1. Quantum Cybernetics" data-ru="11.1. Квантовая кибернетика" data-fr="11.1. Cybernétique Quantique">11.1. Quantum Cybernetics</a></li>
-                    <li><a href="#11.2" data-en="11.2. Nanocybernetics" data-ru="11.2. Нанокибернетика" data-fr="11.2. Nanocybernétique">11.2. Nanocybernetics</a></li>
-                    <li><a href="#11.3" data-en="11.3. Integration with Other Sciences" data-ru="11.3. Интеграция с другими науками" data-fr="11.3. Intégration avec d'Autres Sciences">11.3. Integration with Other Sciences</a></li>
-                    <li><a href="#11.4" data-en="11.4. Cybernetics of the Future" data-ru="11.4. Кибернетика будущего" data-fr="11.4. Cybernétique du Futur">11.4. Cybernetics of the Future</a></li>
-                </ul>
-            </div>
-            
-            <div class="chapter-card">
-                <h2 data-en="Appendices" data-ru="Приложения" data-fr="Annexes">Appendices</h2>
-                <ul>
-                    <li><a href="#A" data-en="A. Glossary of Terms" data-ru="A. Глоссарий терминов"
+                    <li><a href="#5.3" data-en="5.3. Mechatronics" data-ru="5.3. Мехатроника" data-fr="5.3. Mécatronique">5.3. Mec
