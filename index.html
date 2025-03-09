@@ -1,1 +1,559 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кибернетика: Основы и применение - Интерактивное оглавление</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --hover-color: #1abc9c;
+            --bg-color: #f9f9f9;
+            --chapter-bg: #fff;
+            --text-color: #333;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .ascii-art {
+            text-align: center;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1;
+            margin: 20px auto;
+            color: var(--primary-color);
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        
+        .header h2 {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.5rem;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+        
+        .header p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .creator-note {
+            margin-top: 1rem !important;
+            font-style: italic;
+            font-size: 0.9rem !important;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .chapter-card {
+            background-color: var(--chapter-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--secondary-color);
+        }
+        
+        .chapter-card h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .chapter-card ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 1rem 0 0 0;
+        }
+        
+        .chapter-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .chapter-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .chapter-card a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.2s ease;
+            display: block;
+            padding-left: 0.5rem;
+        }
+        
+        .chapter-card a:hover {
+            color: var(--hover-color);
+            padding-left: 0.7rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .theme-toggles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .theme-toggle {
+            background: #fff;
+            color: var(--primary-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .dark-mode .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .red-theme {
+            --primary-color: #a32424;
+            --secondary-color: #e74c3c;
+            --hover-color: #c0392b;
+        }
+        
+        .red-theme.dark-mode {
+            --primary-color: #7a1818;
+            --secondary-color: #c0392b;
+            --hover-color: #e74c3c;
+        }
+        
+        .blue-theme {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --hover-color: #1abc9c;
+        }
+        
+        .blue-theme.dark-mode {
+            --primary-color: #1a2639;
+            --secondary-color: #2e86de;
+            --hover-color: #00b894;
+        }
+        
+        /* Language hover effect styling */
+        [data-en], [data-ru], [data-fr] {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        [data-en]:hover, [data-ru]:hover, [data-fr]:hover {
+            color: inherit;
+            cursor: pointer;
+        }
+        
+        .old-style-popup {
+            position: absolute;
+            top: 80%;
+            left: -20px;
+            background: #f9e7c9;
+            border: 1px solid #8d6e63;
+            border-radius: 3px;
+            padding: 3px 6px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+            white-space: normal;
+            opacity: 0.95;
+            filter: sepia(0.3);
+            display: none;
+            pointer-events: none;
+            font-style: italic;
+            font-weight: normal;
+            font-size: 0.85em;
+            color: #0d47a1;
+            max-width: 100%;
+            width: max-content;
+        }
+        
+        .old-style-popup::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 15px;
+            border-width: 0 6px 6px;
+            border-style: solid;
+            border-color: transparent transparent #8d6e63;
+        }
+        
+        @keyframes oldStyleEffect {
+            0% {
+                opacity: 0;
+                transform: translateX(-3px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .dark-mode {
+            --primary-color: #1a2639;
+            --secondary-color: #2e86de;
+            --hover-color: #00b894;
+            --bg-color: #121212;
+            --chapter-bg: #1e272e;
+            --text-color: #f5f5f5;
+        }
+        
+        /* Dark mode adjustments for popups */
+        .dark-mode .old-style-popup {
+            background: #38290e;
+            color: #4f83cc;
+            border-color: #614a35;
+        }
+        
+        .dark-mode .old-style-popup::after {
+            border-color: transparent transparent #614a35;
+        }
+        
+        .chapter-card a .old-style-popup {
+            max-width: 250px;
+        }
+        
+        .header .old-style-popup {
+            max-width: 300px;
+        }
+        
+        .dark-mode .ascii-art {
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create popups for all translatable elements
+            const translatableElements = document.querySelectorAll('[data-en], [data-ru], [data-fr]');
+            
+            translatableElements.forEach(element => {
+                // Skip if element already has popup
+                if (element.querySelector('.old-style-popup')) return;
+                
+                // Create popup element
+                const popup = document.createElement('div');
+                popup.className = 'old-style-popup';
+                
+                // Set popup text based on language
+                if (element.hasAttribute('lang') && element.getAttribute('lang') === 'en') {
+                    popup.textContent = element.getAttribute('data-fr');
+                } else {
+                    popup.textContent = element.getAttribute('data-ru');
+                }
+                
+                // Add popup to element
+                element.appendChild(popup);
+                
+                // Show/hide popup on hover
+                element.addEventListener('mouseenter', () => {
+                    popup.style.display = 'block';
+                    popup.style.animation = 'oldStyleEffect 0.3s ease-in-out forwards';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    popup.style.display = 'none';
+                });
+            });
+            
+            // Theme toggles
+            const body = document.body;
+            const blueThemeToggle = document.getElementById('blueThemeToggle');
+            const redThemeToggle = document.getElementById('redThemeToggle');
+            
+            // Initialize themes
+            body.classList.add('blue-theme');
+            
+            // Blue theme toggle
+            blueThemeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                updateToggleText(blueThemeToggle);
+            });
+            
+            // Red theme toggle
+            redThemeToggle.addEventListener('click', () => {
+                body.classList.toggle('red-theme');
+                body.classList.toggle('blue-theme');
+                updateToggleText(redThemeToggle);
+            });
+            
+            function updateToggleText(button) {
+                const popup = button.querySelector('.old-style-popup');
+                
+                if (button === blueThemeToggle) {
+                    if (body.classList.contains('dark-mode')) {
+                        button.textContent = 'Day Mode';
+                    } else {
+                        button.textContent = 'Night Mode';
+                    }
+                } else if (button === redThemeToggle) {
+                    if (body.classList.contains('red-theme')) {
+                        button.textContent = 'Blue Mode';
+                    } else {
+                        button.textContent = 'Red Mode';
+                    }
+                }
+                
+                // Update popup text
+                if (popup) {
+                    if (button === blueThemeToggle) {
+                        if (body.classList.contains('dark-mode')) {
+                            if (button.hasAttribute('lang') && button.getAttribute('lang') === 'en') {
+                                popup.textContent = 'Mode Jour';
+                            } else {
+                                popup.textContent = 'Дневной режим';
+                            }
+                        } else {
+                            if (button.hasAttribute('lang') && button.getAttribute('lang') === 'en') {
+                                popup.textContent = 'Mode Nuit';
+                            } else {
+                                popup.textContent = 'Ночной режим';
+                            }
+                        }
+                    } else if (button === redThemeToggle) {
+                        if (body.classList.contains('red-theme')) {
+                            if (button.hasAttribute('lang') && button.getAttribute('lang') === 'en') {
+                                popup.textContent = 'Mode Bleu';
+                            } else {
+                                popup.textContent = 'Синий режим';
+                            }
+                        } else {
+                            if (button.hasAttribute('lang') && button.getAttribute('lang') === 'en') {
+                                popup.textContent = 'Mode Rouge';
+                            } else {
+                                popup.textContent = 'Красный режим';
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Make chapters expandable on mobile
+            const chapterCards = document.querySelectorAll('.chapter-card');
+            
+            if (window.innerWidth <= 768) {
+                chapterCards.forEach(card => {
+                    const heading = card.querySelector('h2');
+                    const list = card.querySelector('ul');
+                    
+                    list.style.display = 'none';
+                    
+                    heading.addEventListener('click', () => {
+                        if (list.style.display === 'none') {
+                            list.style.display = 'block';
+                        } else {
+                            list.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</head>
+<body class="blue-theme">
+    <button class="mode-toggle" id="modeToggle" lang="en" data-en="Dark Theme" data-ru="Темная тема" data-fr="Thème Sombre" style="display:none;">Dark Theme</button>
+    
+    <div class="header">
+        <h1 data-en="Cybernetics: Fundamentals and Applications" data-ru="Кибернетика: Основы и применение" data-fr="Cybernétique: Fondements et Applications">Cybernetics: Fundamentals and Applications</h1>
+        <h2 data-en="Interactive Book Table of Contents" data-ru="Интерактивное оглавление книги" data-fr="Table des Matières Interactive du Livre">Interactive Book Table of Contents</h2>
+        <p class="creator-note" lang="en" data-en="HTML Version Created by AI-Delirium TG Team" data-ru="HTML версия создана командой AI-Delirium TG" data-fr="Version HTML Créée par l'Équipe AI-Delirium TG">HTML Version Created by AI-Delirium TG Team</p>
+        
+        <div class="theme-toggles">
+            <button class="theme-toggle" id="blueThemeToggle" data-en="Day/Night Mode" data-ru="Дневной/Ночной режим" data-fr="Mode Jour/Nuit">Day/Night Mode</button>
+            <button class="theme-toggle" id="redThemeToggle" data-en="Red/Blue Mode" data-ru="Красный/Синий режим" data-fr="Mode Rouge/Bleu">Red/Blue Mode</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="grid">
+            <div class="chapter-card">
+                <h2 data-en="Chapter 1. Introduction to Cybernetics" data-ru="Глава 1. Введение в кибернетику" data-fr="Chapitre 1. Introduction à la Cybernétique">Chapter 1. Introduction to Cybernetics</h2>
+                <ul>
+                    <li><a href="#1.1" data-en="1.1. History of Cybernetics Development" data-ru="1.1. История развития кибернетики" data-fr="1.1. Histoire du Développement de la Cybernétique">1.1. History of Cybernetics Development</a></li>
+                    <li><a href="#1.2" data-en="1.2. Norbert Wiener and the Formation of Science" data-ru="1.2. Норберт Винер и становление науки" data-fr="1.2. Norbert Wiener et la Formation de la Science">1.2. Norbert Wiener and the Formation of Science</a></li>
+                    <li><a href="#1.3" data-en="1.3. Basic Concepts and Terminology" data-ru="1.3. Основные концепции и терминология" data-fr="1.3. Concepts de Base et Terminologie">1.3. Basic Concepts and Terminology</a></li>
+                    <li><a href="#1.4" data-en="1.4. Cybernetics in the Modern World" data-ru="1.4. Кибернетика в современном мире" data-fr="1.4. La Cybernétique dans le Monde Moderne">1.4. Cybernetics in the Modern World</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 2. Systems Theory and Control" data-ru="Глава 2. Теория систем и управления" data-fr="Chapitre 2. Théorie des Systèmes et Contrôle">Chapter 2. Systems Theory and Control</h2>
+                <ul>
+                    <li><a href="#2.1" data-en="2.1. Basic Concepts of Systems Theory" data-ru="2.1. Основные понятия теории систем" data-fr="2.1. Concepts Fondamentaux de la Théorie des Systèmes">2.1. Basic Concepts of Systems Theory</a></li>
+                    <li><a href="#2.2" data-en="2.2. Principles of Feedback" data-ru="2.2. Принципы обратной связи" data-fr="2.2. Principes de Rétroaction">2.2. Principles of Feedback</a></li>
+                    <li><a href="#2.3" data-en="2.3. System Stability" data-ru="2.3. Устойчивость систем" data-fr="2.3. Stabilité des Systèmes">2.3. System Stability</a></li>
+                    <li><a href="#2.4" data-en="2.4. Adaptive Control" data-ru="2.4. Адаптивное управление" data-fr="2.4. Contrôle Adaptatif">2.4. Adaptive Control</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 3. Information and Communication" data-ru="Глава 3. Информация и коммуникация" data-fr="Chapitre 3. Information et Communication">Chapter 3. Information and Communication</h2>
+                <ul>
+                    <li><a href="#3.1" data-en="3.1. Information Theory" data-ru="3.1. Теория информации" data-fr="3.1. Théorie de l'Information">3.1. Information Theory</a></li>
+                    <li><a href="#3.2" data-en="3.2. Entropy and Information Entropy" data-ru="3.2. Энтропия и информационная энтропия" data-fr="3.2. Entropie et Entropie de l'Information">3.2. Entropy and Information Entropy</a></li>
+                    <li><a href="#3.3" data-en="3.3. Information Coding" data-ru="3.3. Кодирование информации" data-fr="3.3. Codage de l'Information">3.3. Information Coding</a></li>
+                    <li><a href="#3.4" data-en="3.4. Communication Channels and Noise Immunity" data-ru="3.4. Каналы связи и помехоустойчивость" data-fr="3.4. Canaux de Communication et Immunité au Bruit">3.4. Communication Channels and Noise Immunity</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 4. Mathematical Apparatus of Cybernetics" data-ru="Глава 4. Математический аппарат кибернетики" data-fr="Chapitre 4. Appareil Mathématique de la Cybernétique">Chapter 4. Mathematical Apparatus of Cybernetics</h2>
+                <ul>
+                    <li><a href="#4.1" data-en="4.1. Algorithm Theory" data-ru="4.1. Теория алгоритмов" data-fr="4.1. Théorie des Algorithmes">4.1. Algorithm Theory</a></li>
+                    <li><a href="#4.2" data-en="4.2. Discrete Mathematics" data-ru="4.2. Дискретная математика" data-fr="4.2. Mathématiques Discrètes">4.2. Discrete Mathematics</a></li>
+                    <li><a href="#4.3" data-en="4.3. Automata Theory" data-ru="4.3. Теория автоматов" data-fr="4.3. Théorie des Automates">4.3. Automata Theory</a></li>
+                    <li><a href="#4.4" data-en="4.4. Optimization Methods" data-ru="4.4. Методы оптимизации" data-fr="4.4. Méthodes d'Optimisation">4.4. Optimization Methods</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 5. Technical Systems in Cybernetics" data-ru="Глава 5. Технические системы в кибернетике" data-fr="Chapitre 5. Systèmes Techniques en Cybernétique">Chapter 5. Technical Systems in Cybernetics</h2>
+                <ul>
+                    <li><a href="#5.1" data-en="5.1. Automated Control Systems" data-ru="5.1. Автоматизированные системы управления" data-fr="5.1. Systèmes de Contrôle Automatisés">5.1. Automated Control Systems</a></li>
+                    <li><a href="#5.2" data-en="5.2. Robotics" data-ru="5.2. Робототехника" data-fr="5.2. Robotique">5.2. Robotics</a></li>
+                    <li><a href="#5.3" data-en="5.3. Mechatronics" data-ru="5.3. Мехатроника" data-fr="5.3. Mécatronique">5.3. Mechatronics</a></li>
+                    <li><a href="#5.4" data-en="5.4. Measurement Systems and Sensors" data-ru="5.4. Измерительные системы и датчики" data-fr="5.4. Systèmes de Mesure et Capteurs">5.4. Measurement Systems and Sensors</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 6. Biological Cybernetics" data-ru="Глава 6. Биологическая кибернетика" data-fr="Chapitre 6. Cybernétique Biologique">Chapter 6. Biological Cybernetics</h2>
+                <ul>
+                    <li><a href="#6.1" data-en="6.1. Biological Control Systems" data-ru="6.1. Биологические системы управления" data-fr="6.1. Systèmes de Contrôle Biologiques">6.1. Biological Control Systems</a></li>
+                    <li><a href="#6.2" data-en="6.2. Neurocybernetics" data-ru="6.2. Нейрокибернетика" data-fr="6.2. Neurocybernétique">6.2. Neurocybernetics</a></li>
+                    <li><a href="#6.3" data-en="6.3. Modeling of Biological Processes" data-ru="6.3. Моделирование биологических процессов" data-fr="6.3. Modélisation des Processus Biologiques">6.3. Modeling of Biological Processes</a></li>
+                    <li><a href="#6.4" data-en="6.4. Artificial Neural Networks" data-ru="6.4. Искусственные нейронные сети" data-fr="6.4. Réseaux de Neurones Artificiels">6.4. Artificial Neural Networks</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 7. Economic Cybernetics" data-ru="Глава 7. Экономическая кибернетика" data-fr="Chapitre 7. Cybernétique Économique">Chapter 7. Economic Cybernetics</h2>
+                <ul>
+                    <li><a href="#7.1" data-en="7.1. Modeling of Economic Processes" data-ru="7.1. Моделирование экономических процессов" data-fr="7.1. Modélisation des Processus Économiques">7.1. Modeling of Economic Processes</a></li>
+                    <li><a href="#7.2" data-en="7.2. Optimal Resource Management" data-ru="7.2. Оптимальное управление ресурсами" data-fr="7.2. Gestion Optimale des Ressources">7.2. Optimal Resource Management</a></li>
+                    <li><a href="#7.3" data-en="7.3. Decision Support Systems" data-ru="7.3. Системы поддержки принятия решений" data-fr="7.3. Systèmes d'Aide à la Décision">7.3. Decision Support Systems</a></li>
+                    <li><a href="#7.4" data-en="7.4. Economic Indicators Forecasting" data-ru="7.4. Прогнозирование экономических показателей" data-fr="7.4. Prévision des Indicateurs Économiques">7.4. Economic Indicators Forecasting</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 8. Social Cybernetics" data-ru="Глава 8. Социальная кибернетика" data-fr="Chapitre 8. Cybernétique Sociale">Chapter 8. Social Cybernetics</h2>
+                <ul>
+                    <li><a href="#8.1" data-en="8.1. Society as a Cybernetic System" data-ru="8.1. Общество как кибернетическая система" data-fr="8.1. La Société comme Système Cybernétique">8.1. Society as a Cybernetic System</a></li>
+                    <li><a href="#8.2" data-en="8.2. Information Society" data-ru="8.2. Информационное общество" data-fr="8.2. Société de l'Information">8.2. Information Society</a></li>
+                    <li><a href="#8.3" data-en="8.3. Modeling of Social Processes" data-ru="8.3. Моделирование социальных процессов" data-fr="8.3. Modélisation des Processus Sociaux">8.3. Modeling of Social Processes</a></li>
+                    <li><a href="#8.4" data-en="8.4. Management of Social Systems" data-ru="8.4. Управление социальными системами" data-fr="8.4. Gestion des Systèmes Sociaux">8.4. Management of Social Systems</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 9. Artificial Intelligence" data-ru="Глава 9. Искусственный интеллект" data-fr="Chapitre 9. Intelligence Artificielle">Chapter 9. Artificial Intelligence</h2>
+                <ul>
+                    <li><a href="#9.1" data-en="9.1. Basic Concepts of Artificial Intelligence" data-ru="9.1. Основные концепции искусственного интеллекта" data-fr="9.1. Concepts de Base de l'Intelligence Artificielle">9.1. Basic Concepts of Artificial Intelligence</a></li>
+                    <li><a href="#9.2" data-en="9.2. Expert Systems" data-ru="9.2. Экспертные системы" data-fr="9.2. Systèmes Experts">9.2. Expert Systems</a></li>
+                    <li><a href="#9.3" data-en="9.3. Machine Learning" data-ru="9.3. Машинное обучение" data-fr="9.3. Apprentissage Automatique">9.3. Machine Learning</a></li>
+                    <li><a href="#9.4" data-en="9.4. Computer Vision and Pattern Recognition" data-ru="9.4. Компьютерное зрение и распознавание образов" data-fr="9.4. Vision par Ordinateur et Reconnaissance de Formes">9.4. Computer Vision and Pattern Recognition</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 10. Cybersecurity" data-ru="Глава 10. Кибербезопасность" data-fr="Chapitre 10. Cybersécurité">Chapter 10. Cybersecurity</h2>
+                <ul>
+                    <li><a href="#10.1" data-en="10.1. Information Security Threats" data-ru="10.1. Угрозы информационной безопасности" data-fr="10.1. Menaces pour la Sécurité de l'Information">10.1. Information Security Threats</a></li>
+                    <li><a href="#10.2" data-en="10.2. Information Protection Methods" data-ru="10.2. Методы защиты информации" data-fr="10.2. Méthodes de Protection de l'Information">10.2. Information Protection Methods</a></li>
+                    <li><a href="#10.3" data-en="10.3. Cryptography" data-ru="10.3. Криптография" data-fr="10.3. Cryptographie">10.3. Cryptography</a></li>
+                    <li><a href="#10.4" data-en="10.4. Ethical Aspects of Cybersecurity" data-ru="10.4. Этические аспекты кибербезопасности" data-fr="10.4. Aspects Éthiques de la Cybersécurité">10.4. Ethical Aspects of Cybersecurity</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Chapter 11. Perspectives of Cybernetics Development" data-ru="Глава 11. Перспективы развития кибернетики" data-fr="Chapitre 11. Perspectives de Développement de la Cybernétique">Chapter 11. Perspectives of Cybernetics Development</h2>
+                <ul>
+                    <li><a href="#11.1" data-en="11.1. Quantum Cybernetics" data-ru="11.1. Квантовая кибернетика" data-fr="11.1. Cybernétique Quantique">11.1. Quantum Cybernetics</a></li>
+                    <li><a href="#11.2" data-en="11.2. Nanocybernetics" data-ru="11.2. Нанокибернетика" data-fr="11.2. Nanocybernétique">11.2. Nanocybernetics</a></li>
+                    <li><a href="#11.3" data-en="11.3. Integration with Other Sciences" data-ru="11.3. Интеграция с другими науками" data-fr="11.3. Intégration avec d'Autres Sciences">11.3. Integration with Other Sciences</a></li>
+                    <li><a href="#11.4" data-en="11.4. Cybernetics of the Future" data-ru="11.4. Кибернетика будущего" data-fr="11.4. Cybernétique du Futur">11.4. Cybernetics of the Future</a></li>
+                </ul>
+            </div>
+            
+            <div class="chapter-card">
+                <h2 data-en="Appendices" data-ru="Приложения" data-fr="Annexes">Appendices</h2>
+                <ul>
+                    <li><a href="#A" data-en="A. Glossary of Terms" data-ru="A. Глоссарий терминов"
