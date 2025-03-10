@@ -1,0 +1,403 @@
+/* style.css */
+
+/* ------------------------------------------------------------
+   Theme Variables - Inspired by Cybernetics principles:
+   Adaptability, Control, and Feedback.
+   Root level defines default light theme, other themes override.
+------------------------------------------------------------ */
+:root {
+  --primary-color: #2c3e50; /* Dark slate gray - calm control */
+  --secondary-color: #3498db; /* Light blue - information flow */
+  --bg-color: #f9f9f9; /* Off-white - clean slate */
+  --text-color: #333; /* Dark gray - readable text */
+  --accent-color: #1abc9c; /* Turquoise - subtle accent, system feedback */
+  --hover-color: #5dade2; /* Light bright blue - interactive feedback on hover */
+  --border-color: #e0e0e0; /* Light gray border - clear system boundaries */
+  --font-family-base: 'Arial', sans-serif; /* Clean, readable base font */
+  --font-family-header: 'Helvetica Neue', sans-serif; /* Modern, clear header font */
+  --base-font-size: 16px;
+  --heading-font-weight: bold;
+  --border-radius: 5px; /* Soft corners - approachable interface */
+  --transition-duration: 0.3s; /* Smooth transitions - controlled changes */
+}
+
+/* Dark Theme - Inverse control, focused attention */
+.theme-dark {
+  --primary-color: #1a2639;
+  --secondary-color: #2e86de;
+  --bg-color: #121212; /* Dark background - focus on content */
+  --text-color: #f5f5f5; /* Light text - contrast for dark bg */
+  --border-color: #333;
+}
+
+/* Blue Theme - Stability and Information */
+.theme-blue {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --hover-color: #1abc9c;
+  --bg-color: #f0f8ff; /* Light blue background */
+}
+
+/* Red Theme - Emphasis and Action */
+.theme-red {
+  --primary-color: #a32424;
+  --secondary-color: #e74c3c;
+  --hover-color: #c0392b;
+  --bg-color: #fce5e5; /* Light red background */
+  --text-color: #5c1a1a; /* Darker text for contrast */
+}
+
+/* Ikigai Theme -  Highlighting connections (Special Effects Placeholder) */
+.theme-ikigai {
+  /* --special-effect-color: ...;  Define special effect variables if needed */
+  /* Add styles to highlight connections, passion, and purpose -  Requires JS for dynamic effects */
+}
+
+
+/* ------------------------------------------------------------
+   General Body and Typography - Visual Hierarchy & Readability
+   Reflecting Wiener's clear and structured writing style.
+------------------------------------------------------------ */
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--base-font-size);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-header);
+  font-weight: var(--heading-font-weight);
+  color: var(--primary-color);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.75em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.25em; }
+h6 { font-size: 1em; }
+
+p {
+  margin-bottom: 1em;
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color var(--transition-duration);
+}
+
+a:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------
+   Layout & Structure -  Clear organization, system thinking
+   Parts, Sections, Chapters - hierarchical visual representation
+------------------------------------------------------------ */
+.book-container {
+  display: flex;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.book-navigation {
+  width: 250px; /* Fixed width for navigation - control panel */
+  margin-right: 30px;
+  padding-right: 20px;
+  border-right: 1px solid var(--border-color);
+  position: sticky; /* Sticky navigation - persistent control */
+  top: 20px;
+  height: calc(100vh - 40px); /* Adjust height based on container padding */
+  overflow-y: auto; /* Scrollable navigation for long books */
+}
+
+.book-content {
+  flex: 1; /* Main content takes remaining space */
+  padding: 20px;
+}
+
+.part {
+  margin-bottom: 2em;
+  border-bottom: 2px solid var(--secondary-color); /* Part separator - major system division */
+  padding-bottom: 1em;
+}
+
+.part-title {
+  font-size: 2.2em;
+  color: var(--secondary-color); /* Emphasized part title */
+  margin-bottom: 0.5em;
+}
+
+.chapter {
+  margin-bottom: 1.5em;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent-color); /* Chapter indicator - system component */
+}
+
+.chapter-title {
+  font-size: 1.8em;
+  margin-bottom: 0.3em;
+  display: flex;
+  align-items: center; /* Vertically center icon and title */
+}
+
+.chapter-icon {
+  margin-right: 10px;
+  font-size: 1.2em; /* Adjust icon size as needed - visual cue */
+  color: var(--accent-color); /* Icon color matches chapter indicator */
+}
+
+
+.section {
+  margin-bottom: 1em;
+  padding-left: 20px;
+}
+
+.section-title {
+  font-size: 1.4em;
+  margin-bottom: 0.2em;
+}
+
+.subsection-title {
+  font-size: 1.2em;
+  margin-bottom: 0.2em;
+}
+
+
+/* ------------------------------------------------------------
+   Navigation Elements - Adaptive Navigation, User Control
+   Table of Contents, Concept Map, Knowledge Graph - different control panels
+------------------------------------------------------------ */
+.navigation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation-item {
+  margin-bottom: 0.5em;
+}
+
+.navigation-link {
+  display: block;
+  padding: 0.5em 0;
+  color: var(--text-color);
+  transition: color var(--transition-duration), padding-left var(--transition-duration);
+}
+
+.navigation-link:hover,
+.navigation-link.active {
+  color: var(--secondary-color);
+  padding-left: 0.5em; /* Indent on hover/active - feedback on selection */
+}
+
+/* Style for active navigation link (e.g., current chapter) - system state indicator */
+.navigation-link.active {
+  font-weight: bold;
+}
+
+
+/* ------------------------------------------------------------
+   Reading Modes - Focus, Study, Presentation - controlled reading environments
+   Adapt UI for different reading purposes.
+------------------------------------------------------------ */
+.reading-mode-study .book-content {
+  /* Styles for study mode - annotations, highlighting, note-taking areas */
+  /* Example: Wider margins for notes */
+  padding-right: 100px;
+}
+
+.reading-mode-presentation .book-content {
+  /* Styles for presentation mode - fullscreen, simplified display */
+  max-width: 100%;
+  font-size: 1.2em; /* Larger font for presentations */
+  line-height: 1.8;
+}
+
+
+/* ------------------------------------------------------------
+   Interactive Elements - Concept Explorer, Timeline, Domain Connector
+   Provide tools for exploring the interconnected knowledge.
+------------------------------------------------------------ */
+.interactive-element {
+  margin-top: 2em;
+  padding: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color); /* Consistent background */
+}
+
+.interactive-element-title {
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
+}
+
+.interactive-element-description {
+  color: #777; /* Muted description text */
+  margin-bottom: 1em;
+}
+
+
+/* ------------------------------------------------------------
+   Search & Filters - Intelligent Search, Control over Knowledge Access
+   Filters for complexity, domain, language - refined information retrieval
+------------------------------------------------------------ */
+.search-bar {
+  margin-bottom: 1.5em;
+}
+
+.search-input {
+  padding: 0.8em;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-filters {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5em;
+}
+
+.filter-select {
+  padding: 0.5em;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+
+/* ------------------------------------------------------------
+   Chapter Visualization - Progress, Concepts, Relationships, Difficulty
+   Visual feedback on learning progress and complexity.
+------------------------------------------------------------ */
+.chapter-visualization {
+  margin-top: 1em;
+  padding: 0.5em;
+  background-color: #f0f0f0; /* Light background for visualization area */
+  border-radius: var(--border-radius);
+  font-size: 0.9em;
+  color: #555;
+}
+/* Add more specific styles for progress bars, concept highlights, etc., if needed */
+
+
+/* ------------------------------------------------------------
+   Footer -  Copyright, Language Selector, Theme Toggles, Reading Mode Selector
+   Footer as a control panel for basic settings.
+------------------------------------------------------------ */
+.book-footer {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 30px;
+  border-top: 1px solid var(--border-color);
+  color: #777;
+  font-size: 0.9em;
+}
+
+.footer-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.language-selector,
+.theme-toggles,
+.reading-mode-selector {
+  /* Style for selectors in footer - minimal and functional */
+}
+
+.ascii-art-footer {
+  font-family: monospace; /* Monospace font for ASCII art - technical touch */
+  white-space: pre; /* Preserve spacing in ASCII art */
+  margin-top: 10px;
+}
+
+
+/* ------------------------------------------------------------
+   Accessibility - High Contrast, Screen Reader, Keyboard Nav, Font Scaling, Reduced Motion
+   Ensuring control and access for all users.
+------------------------------------------------------------ */
+.high-contrast {
+  /* Override color variables for high contrast - enhanced control for visibility */
+  --text-color: #fff;
+  --bg-color: #000;
+  --primary-color: #ffff00; /* Bright primary color */
+  --secondary-color: #00ff00; /* Bright secondary color */
+}
+
+/* Screen reader compatibility - ARIA attributes and semantic HTML are key (CSS for visual adjustments) */
+/* Keyboard navigation - Focus styles for interactive elements */
+a:focus,
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px; /* Visual feedback for keyboard users */
+}
+
+
+/* Font scaling - Relative units (em, rem) used for font sizes for accessibility */
+/* Reduced Motion -  Disable animations and transitions if user prefers reduced motion (CSS media query) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0 !important;
+    transition-duration: 0 !important;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   Utility Classes (Optional, for dynamic styling with JS)
+------------------------------------------------------------ */
+.hidden {
+  display: none !important; /* Control visibility dynamically */
+}
+
+.active {
+  /* Class for active elements, reused in navigation etc. - system state */
+  font-weight: bold; /* Already used in navigation, can be extended */
+}
+
+
+/* ------------------------------------------------------------
+   Icon Font (Example - requires actual icon font library like Font Awesome)
+   For visual elements like chapter icons.
+------------------------------------------------------------ */
+/* Example using Font Awesome (replace with your icon font setup)
+.chapter-icon::before {
+  font-family: "Font Awesome 5 Free"; !* Or your icon font family *!
+  font-weight: 900; !* Style depends on icon font *!
+  content: "\f0eb"; !* Example default icon - replace based on YAML 'icon' property *!
+  !* Map YAML icon names to Font Awesome codes using JS if dynamic *!
+}
+
+.chapter-icon.icon-compass::before { content: "\f14e"; } !* Example compass icon *!
+.chapter-icon.icon-circuit::before { content: "\f20b"; } !* Example circuit icon *!
+.chapter-icon.icon-function::before { content: "\f6df"; } !* Example function icon *!
+.chapter-icon.icon-robot::before { content: "\f854"; } !* Example robot icon *!
+.chapter-icon.icon-dna::before { content: "\f47a"; } !* Example dna icon *!
+.chapter-icon.icon-chart-line::before { content: "\f201"; } !* Example chart-line icon *!
+.chapter-icon.icon-network::before { content: "\f6ff"; } !* Example network icon *!
+.chapter-icon.icon-brain::before { content: "\f5dc"; } !* Example brain icon *!
+.chapter-icon.icon-shield::before { content: "\f132"; } !* Example shield icon *!
+.chapter-icon.icon-rocket::before { content: "\f135"; } !* Example rocket icon *!
+*/
+
+
+/* ------------------------------------------------------------
+   End of Style Sheet -  System complete, ready for control & communication.
+------------------------------------------------------------ */
