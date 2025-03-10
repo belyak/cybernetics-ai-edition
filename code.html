@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybernetics: Fundamentals and Applications</title>
+  <style>
+    /* CSS - Place all CSS here */
+    /* Reset */
+    body, h1, h2, h3, p, ul, li, select, button {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Times New Roman', serif;
+      line-height: 1.5;
+      background-color: #f8f8f0;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header, footer {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+      background-color: #f0e68c;
+      color: #333;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    select, button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #333;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    button {
+      background-color: #800000;
+      color: white;
+      border: none;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    .chapter-card {
+      border: 2px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+      background-color: #f8f8f0;
+    }
+
+    .chapter-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .chapter-card ul {
+      list-style-type: square;
+      padding-left: 1.5rem;
+    }
+
+    .chapter-card li {
+      margin-bottom: 0.3rem;
+      color: #333;
+    }
+
+    .translation-popover {
+      position: absolute;
+      background-color: #ffffe0;
+      border: 1px dashed #800000;
+      padding: 0.5rem;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      font-size: 0.9rem;
+      font-family: serif;
+    }
+
+    #in-god-we-trust {
+      font-family: monospace;
+      white-space: pre;
+    }
+
+    /* Dark Theme */
+    body.dark-theme {
+      background-color: #333;
+      color: #eee;
+    }
+
+    body.dark-theme header,
+    body.dark-theme footer {
+      background-color: #222;
+      color: #eee;
+      border-bottom-color: #666;
+    }
+
+    body.dark-theme select,
+    body.dark-theme button {
+      background-color: #444;
+      color: #eee;
+      border-color: #666;
+    }
+    .dark-theme .chapter-card {
+        background-color: #333;
+        color: #eee;
+        border-color: #666;
+    }
+
+    .dark-theme .chapter-card h2,
+    .dark-theme .chapter-card li {
+        color: #eee;
+    }
+
+    .dark-theme .translation-popover {
+        background-color: #444;
+        color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1></h1>
+    <p></p>
+    <nav>
+      <label for="language-select">Language:</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ru">Russian</option>
+        <option value="fr">French</option>
+      </select>
+      <button id="theme-toggle">Toggle Theme</button>
+    </nav>
+  </header>
+
+  <main id="content">
+    <!-- Content will be dynamically generated here -->
+  </main>
+
+  <footer>
+    <p id="in-god-we-trust"></p>
+    <p>Created by AI-Delirium TG Team</p>
+    <p>© 2025 AI-Delirium TG Team. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // YAML data embedded in the HTML
+    const yamlData = `
+title:
+  en: "Cybernetics: Fundamentals and Applications"
+  ru: "Кибернетика: Основы и применение"
+  fr: "Cybernétique: Fondements et Applications"
+
+subtitle:
+  en: "Interactive Table of Contents"
+  ru: "Интерактивное оглавление"
+  fr: "Table des matières interactive"
+
+creator:
+  en: "Created by AI-Delirium TG Team"
+  ru: "Создано командой AI-Delirium TG"
+  fr: "Créé par l'équipe AI-Delirium TG"
+
+copyright:
+  en: "© 2025 AI-Delirium TG Team. All rights reserved."
+  ru: "© 2025 Команда AI-Delirium TG. Все права защищены."
+  fr: "© 2025 Équipe AI-Delirium TG. Tous droits réservés."
+
+chapters:
+  - number: 1
+    title:
+      en: "Introduction to Cybernetics"
+      ru: "Введение в кибернетику"
+    sections:
+      - number: "1.1"
+        title:
+          en: "History of Cybernetics Development"
+          ru: "История развития кибернетики"
+      - number: "1.2"
+        title:
+          en: "Norbert Wiener and the Establishment of Science"
+          ru: "Норберт Винер и становление науки"
+      - number: "1.3"
+        title:
+          en: "Basic Concepts and Terminology"
+          ru: "Основные концепции и терминология"
+      - number: "1.4"
+        title:
+          en: "Cybernetics in the Modern World"
+          ru: "Кибернетика в современном мире"
+
+  - number: 2
+    title:
+      en: "Systems and Control Theory"
+      ru: "Теория систем и управления"
+    sections:
+      - number: "2.1"
+        title:
+          en: "Basic Concepts of Systems Theory"
+          ru: "Основные понятия теории систем"
+      - number: "2.2"
+        title:
+          en: "Principles of Feedback"
+          ru: "Принципы обратной связи"
+      - number: "2.3"
+        title:
+          en: "System Stability"
+          ru: "Устойчивость систем"
+      - number: "2.4"
+        title:
+          en: "Adaptive Control"
+          ru: "Адаптивное управление"
+
+  - number: 3
+    title:
+      en: "Information and Communication"
+      ru: "Информация и коммуникация"
+    sections:
+      - number: "3.1"
+        title:
+          en: "Information Theory"
+          ru: "Теория информации"
+      - number: "3.2"
+        title:
+          en: "Entropy and Information Entropy"
+          ru: "Энтропия и информационная энтропия"
+      - number: "3.3"
+        title:
+          en: "Information Coding"
+          ru: "Кодирование информации"
+      - number: "3.4"
+        title:
+          en: "Communication Channels and Noise Immunity"
+          ru: "Каналы связи и помехоустойчивость"
+
+  - number: 4
+    title:
+      en: "Mathematical Apparatus of Cybernetics"
+      ru: "Математический аппарат кибернетики"
+    sections:
+      - number: "4.1"
+        title:
+          en: "Algorithm Theory"
+          ru: "Теория алгоритмов"
+      - number: "4.2"
+        title:
+          en: "Discrete Mathematics"
+          ru: "Дискретная математика"
+      - number: "4.3"
+        title:
+          en: "Automata Theory"
+          ru: "Теория автоматов"
+      - number: "4.4"
+        title:
+          en: "Optimization Methods"
+          ru: "Методы оптимизации"
+
+  - number: 5
+    title:
+      en: "Technical Systems in Cybernetics"
+      ru: "Технические системы в кибернетике"
+    sections:
+      - number: "5.1"
+        title:
+          en: "Automated Control Systems"
+          ru: "Автоматизированные системы управления"
+      - number: "5.2"
+        title:
+          en: "Robotics"
+          ru: "Робототехника"
+      - number: "5.3"
+        title:
+          en: "Mechatronics"
+          ru: "Мехатроника"
+      - number: "5.4"
+        title:
+          en: "Measurement Systems and Sensors"
+          ru: "Измерительные системы и датчики"
+
+  - number: 6
+    title:
+      en: "Biological Cybernetics"
+      ru: "Биологическая кибернетика"
+    sections:
+      - number: "6.1"
+        title:
+          en: "Biological Control Systems"
+          ru: "Биологические системы управления"
+      - number: "6.2"
+        title:
+          en: "Neurocybernetics"
+          ru: "Нейрокибернетика"
+      - number: "6.3"
+        title:
+          en: "Modeling Biological Processes"
+          ru: "Моделирование биологических процессов"
+      - number: "6.4"
+        title:
+          en: "Artificial Neural Networks"
+          ru: "Искусственные нейронные сети"
+
+  - number: 7
+    title:
+      en: "Economic Cybernetics"
+      ru: "Экономическая кибернетика"
+    sections:
+      - number: "7.1"
+        title:
+          en: "Modeling Economic Processes"
+          ru: "Моделирование экономических процессов"
+      - number: "7.2"
+        title:
+          en: "Optimal Resource Management"
+          ru: "Оптимальное управление ресурсами"
+      - number: "7.3"
+        title:
+          en: "Decision Support Systems"
+          ru: "Системы поддержки принятия решений"
+      - number: "7.4"
+        title:
+          en: "Forecasting Economic Indicators"
+          ru: "Прогнозирование экономических показателей"
+
+  - number: 8
+    title:
+      en: "Social Cybernetics"
+      ru: "Социальная кибернетика"
+    sections:
+      - number: "8.1"
+        title:
+          en: "Society as a Cybernetic System"
+          ru: "Общество как кибернетическая система"
+      - number: "8.2"
+        title:
+          en: "Information Society"
+          ru: "Информационное общество"
+      - number: "8.3"
+        title:
+          en: "Modeling Social Processes"
+          ru: "Моделирование социальных процессов"
+      - number: "8.4"
+        title:
+          en: "Management of Social Systems"
+          ru: "Управление социальными системами"
+
+  - number: 9
+    title:
+      en: "Artificial Intelligence"
+      ru: "Искусственный интеллект"
+    sections:
+      - number: "9.1"
+        title:
+          en: "Basic Concepts of Artificial Intelligence"
+          ru: "Основные концепции искусственного интеллекта"
+      - number: "9.2"
+        title:
+          en: "Expert Systems"
+          ru: "Экспертные системы"
+      - number: "9.3"
+        title:
+          en: "Machine Learning"
+          ru: "Машинное обучение"
+      - number: "9.4"
+        title:
+          en: "Computer Vision and Pattern Recognition"
+          ru: "Компьютерное зрение и распознавание образов"
+
+  - number: 10
+    title:
+      en: "Cybersecurity"
+      ru: "Кибербезопасность"
+    sections:
+      - number: "10.1"
+        title:
+          en: "Information Security Threats"
+          ru: "Угрозы информационной безопасности"
+      - number: "10.2"
+        title:
+          en: "Information Protection Methods"
+          ru: "Методы защиты информации"
+      - number: "10.3"
+        title:
+          en: "Cryptography"
+          ru: "Криптография"
+      - number: "10.4"
+        title:
+          en: "Ethical Aspects of Cybersecurity"
+          ru: "Этические аспекты кибербезопасности"
+
+  - number: 11
+    title:
+      en: "Prospects for Cybernetics Development"
+      ru: "Перспективы развития кибернетики"
+    sections:
+      - number: "11.1"
+        title:
+          en: "Quantum Cybernetics"
+          ru: "Квантовая кибернетика"
+      - number: "11.2"
+        title:
+          en: "Nanocybernetics"
+          ru: "Нанокибернетика"
+      - number: "11.3"
+        title:
+          en: "Integration with Other Sciences"
+          ru: "Интеграция с другими науками"
+      - number: "11.4"
+        title:
+          en: "Cybernetics of the Future"
+          ru: "Кибернетика будущего"
+
+appendices:
+  - id: "A"
+    title:
+      en: "Glossary of Terms"
+      ru: "Глоссарий терминов"
+  - id: "B"
+    title:
+      en: "Bibliography"
+      ru: "Библиография"
+  - id: "C"
+    title:
+      en: "Index"
+      ru: "Указатель"
+
+ui:
+  themes:
+    - id: "light-dark"
+      label:
+        en: "Toggle Dark Mode"
+    - id: "color"
+      label:
+        en: "Toggle Color Theme"
+    - id: "ikigai"
+      label:
+        jp: "イキガイ Mode"
+
+footer:
+  ascii_art: "IN GOD WE TRUST"
+`;
+
+    // Function to parse YAML (basic implementation)
+    function parseYaml(yamlString) {
+        const lines = yamlString.split('\n');
+        const data = {};
+        let currentKey = null;
+
+        for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (!trimmedLine || trimmedLine.startsWith('#')) continue;
+
+            if (trimmedLine.includes(':')) {
+                const [key, value] = trimmedLine.split(':').map(s => s.trim());
+                if (value) {
+                    data[key] = value;
+                } else {
+                    currentKey = key;
+                    data[key] = {};
+                }
+            } else if (currentKey) {
+                const parts = trimmedLine.split(':').map(s => s.trim());
+                if (parts.length === 2) {
+                    const [subkey, subvalue] = parts;
+                    data[currentKey][subkey] = subvalue;
+                }
+            }
+        }
+        return jsyaml.load(yamlString);
+    }
+
+    // Function to get translation
+    function getTranslation(data, lang) {
+      if (data && data[lang]) {
+        return data[lang];
+      } else if (data && data.en) {
+        return data.en;
+      } else {
+        return "Translation Not Found";
+      }
+    }
+
+    // Function to render table of contents
+    function renderTOC(data, lang) {
+      let tocHTML = '';
+
+      data.chapters.forEach(chapter => {
+        tocHTML += `
+          <div class="chapter-card">
+            <h2>${chapter.number}. ${getTranslation(chapter.title, lang)}</h2>
+            <ul>
+        `;
+        chapter.sections.forEach(section => {
+          tocHTML += `<li>${section.number}. ${getTranslation(section.title, lang)}</li>`;
+        });
+        tocHTML += `
+            </ul>
+          </div>
+        `;
+      });
+
+      document.getElementById('content').innerHTML = tocHTML;
+    }
+        const asciiArt = `
+ __      __
+/  \\    /  \\
+| IN  \\  /  WE |
+|      \\/      |
+| TRUST /\\     |
+ \\__/    \\__/
+`;
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const parsedYaml = jsyaml.load(yamlData);
+      //  const parsedYaml = parseYaml(yamlData);
+
+        const languageSelect = document.getElementById('language-select');
+        let currentLanguage = languageSelect.value;
+
+        document.querySelector('header h1').textContent = getTranslation(parsedYaml.title, currentLanguage);
+        document.querySelector('header p').textContent = getTranslation(parsedYaml.subtitle, currentLanguage);
+        document.querySelector('footer p').textContent = getTranslation(parsedYaml.copyright, currentLanguage);
+       document.getElementById('in-god-we-trust').textContent = asciiArt;
+
+        renderTOC(parsedYaml, currentLanguage);
+
+        languageSelect.addEventListener('change', (event) => {
+            currentLanguage = event.target.value;
+            document.querySelector('header h1').textContent = getTranslation(parsedYaml.title, currentLanguage);
+            document.querySelector('header p').textContent = getTranslation(parsedYaml.subtitle, currentLanguage);
+            document.querySelector('footer p').textContent = getTranslation(parsedYaml.copyright, currentLanguage);
+
+            renderTOC(parsedYaml, currentLanguage);
+        });
+
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+      });
+
+
+    });
+  </script>
+ <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</body>
+</html>
