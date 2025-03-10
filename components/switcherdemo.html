@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybernetics Book - Theme Switcher Demo</title>
+    <style>
+        /* Root Variables for Themes */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --hover-color: #1abc9c;
+            --bg-color: #f9f9f9;
+            --chapter-bg: #fff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --transition-duration: 0.3s;
+        }
+
+        /* Blue theme (default) */
+        .theme-blue {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --hover-color: #1abc9c;
+        }
+
+        /* Red theme */
+        .theme-red {
+            --primary-color: #a32424;
+            --secondary-color: #e74c3c;
+            --hover-color: #c0392b;
+            --bg-color: #fdf5f5;
+        }
+
+        /* Dark mode overrides */
+        .dark-mode {
+            --bg-color: #121212;
+            --chapter-bg: #1e272e;
+            --text-color: #f5f5f5;
+            --border-color: #333;
+        }
+
+        /* Dark mode theme-specific adjustments */
+        .dark-mode.theme-blue {
+            --primary-color: #1a2639;
+            --secondary-color: #2e86de;
+            --hover-color: #00b894;
+        }
+
+        .dark-mode.theme-red {
+            --primary-color: #7a1818;
+            --secondary-color: #c0392b;
+            --hover-color: #e74c3c;
+        }
+
+        /* Ikigai mode animations */
+        .ikigai-mode .chapter-card {
+            animation: ikigaiPulse 4s infinite alternate;
+        }
+
+        @keyframes ikigaiPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Basic styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            transition: all var(--transition-duration) ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all var(--transition-duration) ease;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            transition: color var(--transition-duration) ease;
+        }
+
+        .header h1, .header h2 {
+            color: white;
+            margin: 0.5rem 0;
+        }
+
+        .theme-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .theme-toggle {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .ikigai-toggle {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+            color: #2d3436;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ikigai-toggle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg);
+            animation: ikigaiShine 3s infinite linear;
+        }
+
+        @keyframes ikigaiShine {
+            0% {
+                left: -50%;
+                top: -50%;
+            }
+            100% {
+                left: 150%;
+                top: 150%;
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .chapter-card {
+            background-color: var(--chapter-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: all var(--transition-duration) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--secondary-color);
+            transition: all var(--transition-duration) ease;
+        }
+
+        .chapter-card h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chapter-card ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 1rem 0 0 0;
+        }
+
+        .chapter-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            transition: all var(--transition-duration) ease;
+        }
+
+        .chapter-card li:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-card a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            display: block;
+            padding-left: 0.5rem;
+        }
+
+        .chapter-card a:hover {
+            color: var(--hover-color);
+            padding-left: 0.7rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .demo-info {
+            background-color: var(--chapter-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #theme-status {
+            font-family: monospace;
+            background-color: rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: all var(--transition-duration) ease;
+        }
+
+        .dark-mode #theme-status {
+            background-color: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body class="theme-blue">
+    <header class="header">
+        <h1>Cybernetics: Fundamentals and Applications</h1>
+        <h2>Theme Switcher Demo</h2>
+        <p class="creator-note">Created by AI-Delirium TG Team</p>
+    </header>
+
+    <div class="container">
+        <div class="demo-info">
+            <h2>Theme Demonstration</h2>
+            <p>This demo showcases the theme switching capabilities of the cybernetics book interface. You can try different themes and modes below:</p>
+
+            <div id="theme-status">
+                Current Theme: <span id="current-theme">Blue</span><br>
+                Dark Mode: <span id="dark-mode-status">Off</span><br>
+                Ikigai Mode: <span id="ikigai-mode-status">Off</span>
+            </div>
+
+            <div class="theme-controls">
+                <button id="toggle-dark" class="theme-toggle">Toggle Dark Mode</button>
+                <button id="toggle-theme" class="theme-toggle">Toggle Color Theme</button>
+                <button id="toggle-ikigai" class="theme-toggle ikigai-toggle">イキガイ Mode</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Chapter 1 -->
+            <div class="chapter-card">
+                <h2>1. Introduction to Cybernetics</h2>
+                <ul>
+                    <li><a href="#">1.1. History of Cybernetics Development</a></li>
+                    <li><a href="#">1.2. Norbert Wiener and the Establishment of Science</a></li>
+                    <li><a href="#">1.3. Basic Concepts and Terminology</a></li>
+                    <li><a href="#">1.4. Cybernetics in the Modern World</a></li>
+                </ul>
+            </div>
+
+            <!-- Chapter 2 -->
+            <div class="chapter-card">
+                <h2>2. Systems and Control Theory</h2>
+                <ul>
+                    <li><a href="#">2.1. Basic Concepts of Systems Theory</a></li>
+                    <li><a href="#">2.2. Principles of Feedback</a></li>
+                    <li><a href="#">2.3. System Stability</a></li>
+                    <li><a href="#">2.4. Adaptive Control</a></li>
+                </ul>
+            </div>
+
+            <!-- Chapter 3 -->
+            <div class="chapter-card">
+                <h2>3. Information and Communication</h2>
+                <ul>
+                    <li><a href="#">3.1. Information Theory</a></li>
+                    <li><a href="#">3.2. Entropy and Information Entropy</a></li>
+                    <li><a href="#">3.3. Information Coding</a></li>
+                    <li><a href="#">3.4. Communication Channels and Noise Immunity</a></li>
+                </ul>
+            </div>
+
+            <!-- Chapter 4 -->
+            <div class="chapter-card">
+                <h2>4. Mathematical Apparatus of Cybernetics</h2>
+                <ul>
+                    <li><a href="#">4.1. Algorithm Theory</a></li>
+                    <li><a href="#">4.2. Discrete Mathematics</a></li>
+                    <li><a href="#">4.3. Automata Theory</a></li>
+                    <li><a href="#">4.4. Optimization Methods</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="ascii-art">IN GOD WE TRUST</div>
+        <p>© 2025 AI-Delirium TG Team. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme toggling functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const darkToggle = document.getElementById('toggle-dark');
+            const themeToggle = document.getElementById('toggle-theme');
+            const ikigaiToggle = document.getElementById('toggle-ikigai');
+
+            const currentThemeEl = document.getElementById('current-theme');
+            const darkModeStatusEl = document.getElementById('dark-mode-status');
+            const ikigaiModeStatusEl = document.getElementById('ikigai-mode-status');
+
+            // Toggle dark mode
+            darkToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                darkModeStatusEl.textContent = isDarkMode ? 'On' : 'Off';
+            });
+
+            // Toggle between blue and red themes
+            themeToggle.addEventListener('click', function() {
+                if (body.classList.contains('theme-blue')) {
+                    body.classList.remove('theme-blue');
+                    body.classList.add('theme-red');
+                    currentThemeEl.textContent = 'Red';
+                } else {
+                    body.classList.remove('theme-red');
+                    body.classList.add('theme-blue');
+                    currentThemeEl.textContent = 'Blue';
+                }
+            });
+
+            // Toggle ikigai mode
+            ikigaiToggle.addEventListener('click', function() {
+                body.classList.toggle('ikigai-mode');
+                const isIkigaiMode = body.classList.contains('ikigai-mode');
+                ikigaiModeStatusEl.textContent = isIkigaiMode ? 'On' : 'Off';
+            });
+        });
+    </script>
+</body>
+</html>
