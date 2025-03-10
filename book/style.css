@@ -1,0 +1,575 @@
+/*
+ * Cybernetics Book Interface Styles
+ * Based on Norbert Wiener's principles of adaptability, feedback, control, and modular systems
+ * Structured as a dynamic, adaptive system with clear feedback mechanisms
+ */
+
+/**
+ * The CSS is structured according to cybernetic principles with:
+
+  Modularity - The styles are organized into logical sections (variables, base styles, components)
+  Adaptability - Extensive use of CSS variables with theme switching capabilities
+  Feedback systems - Interactive elements have clear visual feedback on hover/active states
+  Control mechanisms - Theme toggles and language switchers are properly styled
+
+  Key features of the styles:
+
+  Root Variable System - Comprehensive variables for colors, spacing, typography, and transitions
+  Theming System - Support for light/dark mode and color themes (blue/red)
+  Special Ikigai Mode - Custom animations and visual effects
+  Responsive Layout - Adapts to different screen sizes
+  Multilingual Support - Tooltip system for language translations
+  Interactive Elements - Hover effects, transitions, and visual feedback
+  Chapter Cards - Consistent styling with hover animations
+
+  The CSS follows a structured approach with 15 distinct sections, making it easy to maintain and update. Each section is clearly commented, allowing for quick navigation and understanding of the codebase.
+ */
+/* =============================================
+   1. ROOT VARIABLES & THEME SYSTEM
+   ============================================= */
+
+:root {
+  /* Core system variables */
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #1abc9c;
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --hover-color: #5dade2;
+  --border-color: #e0e0e0;
+
+  /* Typography system */
+  --font-family-base: 'Arial', sans-serif;
+  --font-family-header: 'Helvetica Neue', sans-serif;
+  --base-font-size: 16px;
+  --heading-font-weight: bold;
+
+  /* Spacing & geometry */
+  --border-radius: 5px;
+  --standard-padding: 1.5rem;
+  --grid-gap: 20px;
+  --sidebar-width: 250px;
+
+  /* Animation & interaction */
+  --transition-duration: 0.3s;
+  --hover-transform: translateY(-5px);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --card-hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme system - demonstrating cybernetic adaptability */
+
+/* Blue Theme (default) */
+.theme-blue {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --hover-color: #1abc9c;
+  --bg-color: #f0f8ff;
+}
+
+/* Red Theme */
+.theme-red {
+  --primary-color: #a32424;
+  --secondary-color: #e74c3c;
+  --hover-color: #c0392b;
+  --bg-color: #fce5e5;
+  --text-color: #5c1a1a;
+}
+
+/* Dark Theme - adaptive mode change */
+.theme-dark, .dark-mode {
+  --primary-color: #1a2639;
+  --secondary-color: #2e86de;
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --border-color: #333;
+  --chapter-bg: #1e272e;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode theme-specific adjustments */
+.dark-mode.theme-blue {
+  --primary-color: #1a2639;
+  --secondary-color: #2e86de;
+  --hover-color: #00b894;
+}
+
+.dark-mode.theme-red {
+  --primary-color: #7a1818;
+  --secondary-color: #c0392b;
+  --hover-color: #e74c3c;
+}
+
+/* =============================================
+   2. BASE STYLES
+   ============================================= */
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--base-font-size);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  transition: background-color var(--transition-duration),
+              color var(--transition-duration);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-header);
+  font-weight: var(--heading-font-weight);
+  color: var(--primary-color);
+  margin-top: 0;
+  transition: color var(--transition-duration);
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color var(--transition-duration),
+              padding-left var(--transition-duration);
+}
+
+a:hover {
+  color: var(--hover-color);
+}
+
+/* =============================================
+   3. LAYOUT COMPONENTS
+   ============================================= */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Grid system - adaptive to screen sizes */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--grid-gap);
+  margin-top: 20px;
+}
+
+/* =============================================
+   4. HEADER COMPONENT
+   ============================================= */
+
+.book-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: background-color var(--transition-duration);
+}
+
+.book-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.book-subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.5rem;
+  font-weight: normal;
+  opacity: 0.9;
+  position: relative;
+}
+
+.creator-note {
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* =============================================
+   5. LANGUAGE SWITCHER
+   ============================================= */
+
+.language-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 10px;
+}
+
+.language-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background var(--transition-duration);
+}
+
+.language-button:hover,
+.language-button.active {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* =============================================
+   6. THEME CONTROLS
+   ============================================= */
+
+.theme-toggles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Special Ikigai toggle with animation */
+.ikigai-toggle {
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+  color: #2d3436;
+  position: relative;
+  overflow: hidden;
+}
+
+.ikigai-toggle::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: rotate(30deg);
+  animation: ikigaiShine 3s infinite linear;
+}
+
+@keyframes ikigaiShine {
+  0% {
+      left: -50%;
+      top: -50%;
+  }
+  100% {
+      left: 150%;
+      top: 150%;
+  }
+}
+
+/* =============================================
+   7. MAIN CONTENT LAYOUT
+   ============================================= */
+
+.book-container {
+  display: flex;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Sidebar navigation */
+.book-navigation {
+  width: var(--sidebar-width);
+  margin-right: 30px;
+  padding-right: 20px;
+  border-right: 1px solid var(--border-color);
+  position: sticky;
+  top: 20px;
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+  transition: border-color var(--transition-duration);
+}
+
+.book-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* =============================================
+   8. NAVIGATION COMPONENTS
+   ============================================= */
+
+.navigation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation-item {
+  margin-bottom: 0.5em;
+}
+
+.navigation-link {
+  display: block;
+  padding: 0.5em 0;
+  color: var(--text-color);
+  transition: color var(--transition-duration),
+              padding-left var(--transition-duration);
+  text-decoration: none;
+}
+
+.navigation-link:hover,
+.navigation-link.active {
+  color: var(--secondary-color);
+  padding-left: 0.5em;
+}
+
+.navigation-link.active {
+  font-weight: bold;
+}
+
+/* =============================================
+   9. CHAPTER CARD COMPONENTS
+   ============================================= */
+
+.chapter-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: var(--standard-padding);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-duration) ease;
+}
+
+.chapter-card:hover {
+  transform: var(--hover-transform);
+  box-shadow: var(--card-hover-shadow);
+}
+
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: var(--secondary-color);
+  transition: background-color var(--transition-duration);
+}
+
+.chapter-card h2 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-duration),
+              border-color var(--transition-duration);
+}
+
+.chapter-icon {
+  margin-right: 10px;
+  color: var(--accent-color);
+}
+
+.chapter-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.chapter-card li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--border-color);
+  transition: border-color var(--transition-duration);
+}
+
+.chapter-card li:last-child {
+  border-bottom: none;
+}
+
+.chapter-card a {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+  display: block;
+  padding-left: 0.5rem;
+}
+
+.chapter-card a:hover {
+  color: var(--hover-color);
+  padding-left: 0.7rem;
+}
+
+/* =============================================
+   10. LANGUAGE TOOLTIP SYSTEM
+   ============================================= */
+
+.tooltip {
+  position: absolute;
+  background: #f9e7c9;
+  border: 1px solid #8d6e63;
+  border-radius: 3px;
+  padding: 3px 6px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  z-index: 100;
+  font-style: italic;
+  color: #0d47a1;
+  display: none;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  max-width: 200px;
+}
+
+[data-en]:hover .tooltip,
+[data-ru]:hover .tooltip,
+[data-fr]:hover .tooltip {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =============================================
+   11. CHAPTER ICONS
+   ============================================= */
+
+.icon-compass::before { content: "🧭"; }
+.icon-system::before { content: "⚙️"; }
+.icon-info::before { content: "📊"; }
+.icon-math::before { content: "🔢"; }
+.icon-tech::before { content: "🤖"; }
+.icon-bio::before { content: "🧬"; }
+.icon-econ::before { content: "📈"; }
+.icon-social::before { content: "👥"; }
+.icon-ai::before { content: "🧠"; }
+.icon-security::before { content: "🔒"; }
+.icon-future::before { content: "🚀"; }
+
+/* =============================================
+   12. IKIGAI MODE ANIMATIONS
+   ============================================= */
+
+/* Special Ikigai mode with animations */
+.ikigai-mode .chapter-card {
+  animation: ikigaiPulse 4s infinite alternate;
+}
+
+.ikigai-mode .chapter-card:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ikigaiPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(26, 188, 156, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+  }
+}
+
+/* =============================================
+   13. FOOTER STYLES
+   ============================================= */
+
+.footer {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: white;
+  transition: background-color var(--transition-duration);
+}
+
+.ascii-art {
+  font-family: monospace;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+/* =============================================
+   14. RESPONSIVE ADAPTATIONS
+   ============================================= */
+
+@media (max-width: 768px) {
+  .book-container {
+    flex-direction: column;
+  }
+
+  .book-navigation {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .language-toggle {
+    position: relative;
+    top: auto;
+    right: auto;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .book-title {
+    font-size: 2rem;
+  }
+
+  .book-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================
+   15. UTILITY CLASSES
+   ============================================= */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
